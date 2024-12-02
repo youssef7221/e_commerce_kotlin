@@ -21,7 +21,6 @@ class LoginActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.login_screen)
-
         emailInput = findViewById(R.id.email_input)
         passwordInput = findViewById(R.id.password_input)
         loginBtn = findViewById(R.id.login_btn)
