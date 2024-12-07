@@ -4,5 +4,59 @@
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/black</item>
     </style>
+    <!-- EditText Style -->
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/text_container</item> <!-- Reference to custom drawable -->
+        <item name="android:padding">18dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <!-- TextView Style -->
+    <style name="TextViewStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="ButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">18dp</item>
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Login Button Style -->
+    <style name="LoginButtonStyle" parent="ButtonStyle">
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
+
+    <!-- Google Login Button Style -->
+    <style name="GoogleLoginButtonStyle" parent="ButtonStyle">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:drawableEnd">@drawable/ic_google</item>
+        <item name="android:drawablePadding">20dp</item>
+    </style>
+
+    <!-- Label Style for TextViews -->
+    <style name="LabelTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">30dp</item>
+    </style>
+    <!-- Forget Password Label Style -->
+    <style name="ForgetPasswordLabelStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
     <style name="Theme.E_commerce_kot" parent="Base.Theme.E_commerce_kot" />
 </resources>
