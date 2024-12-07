@@ -9,9 +9,10 @@
 
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/onlinelogo"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/quickmart"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
