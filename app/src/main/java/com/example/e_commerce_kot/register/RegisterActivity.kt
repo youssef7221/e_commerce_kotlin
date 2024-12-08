@@ -5,31 +5,51 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_commerce_kot.R
+import com.example.e_commerce_kot.databinding.ActivityMainBinding
+import com.example.e_commerce_kot.databinding.RegisterScreenBinding
 import com.example.e_commerce_kot.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var emailInput : EditText
     private lateinit var passwordInput : EditText
     private lateinit var nameInput : EditText
     private lateinit var signUpBtn : Button
+    private lateinit var binding: RegisterScreenBinding
+    private lateinit var fireBaseAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+            binding = RegisterScreenBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.register_screen)
+        setContentView(binding.root);
         emailInput = findViewById(R.id.email_input)
         passwordInput = findViewById(R.id.password_input)
         nameInput = findViewById(R.id.name_input)
         signUpBtn = findViewById(R.id.signUp_btn)
+        fireBaseAuth = FirebaseAuth.getInstance();
         signUpBtn.setOnClickListener{
             if (validateInputs()){
+                print(emailInput);
                 // Proceed with login logic
-                Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show()
+                fireBaseAuth.createUserWithEmailAndPassword(emailInput.text.toString(),passwordInput.text.toString()).addOnCompleteListener{
+                    if(it.isSuccessful){
+                        Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this,LoginActivity::class.java);
+                            startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                    }
+                };
+//
             }
         }
     }
