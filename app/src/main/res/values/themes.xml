@@ -2,13 +2,20 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.E_commerce_kot" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
     </style>
+
+<!--    <style name="ActiveIndicatorStyle">-->
+<!--        <item name="activeI">#21D4B4</item>  &lt;!&ndash; Active indicator color &ndash;&gt;-->
+<!--        <item name="android:indicatorHeight">3dp</item> &lt;!&ndash; Height of the active indicator &ndash;&gt;-->
+<!--    </style>-->
+
     <!-- EditText Style -->
     <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/text_container</item> <!-- Reference to custom drawable -->
+        <item name="android:background">@drawable/text_container
+        </item> <!-- Reference to custom drawable -->
         <item name="android:padding">18dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">@color/grey</item>

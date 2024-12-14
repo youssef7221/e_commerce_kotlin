@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
@@ -14,10 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.e_commerce_kot.R
 import com.example.e_commerce_kot.databinding.LoginScreenBinding
 import com.example.e_commerce_kot.databinding.RegisterScreenBinding
+import com.example.e_commerce_kot.main.MainActivity
 import com.example.e_commerce_kot.register.RegisterActivity
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -34,7 +38,10 @@ class LoginActivity : AppCompatActivity() {
 
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Log.e("Crash", "Uncaught exception in thread ${thread.name}", throwable)
+        }
         super.onCreate(savedInstanceState)
         binding = LoginScreenBinding.inflate(layoutInflater)
 
@@ -83,24 +90,37 @@ class LoginActivity : AppCompatActivity() {
         // Set onClickListener for login button
         loginButton.setOnClickListener {
             if (validateInputs()) {
-                // Proceed with login logic
-                fireBaseAuth.signInWithEmailAndPassword(emailInput.text.toString(),passwordInput.text.toString()).addOnCompleteListener{
-                    if(it.isSuccessful){
+                fireBaseAuth.signInWithEmailAndPassword(
+                    emailInput.text.toString(),
+                    passwordInput.text.toString()
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
                         Toast.makeText(this, "Sign In Successful!", Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
 
+//                        overridePendingTransition(/* enterAnim = */ R.navigation.navigate_to, /* exitAnim = */
+//                            R.navigation.navigation_from)
+                        // Navigate to MainActivity
+                        val intent = Intent(
+
+                            this, MainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(/* enterAnim = */ R.navigation.navigate_to, /* exitAnim = */
+                            R.navigation.navigation_from)
+                        // Finish LoginActivity to prevent going back
+                        finish()
+                    } else {
+                        Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
             }
         }
+
 
         signUp.setOnClickListener{
             val intent = Intent(this ,RegisterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(/* enterAnim = */ R.navigation.navigate_to, /* exitAnim = */
+                R.navigation.navigation_from)
         }
     }
     private fun validateInputs(): Boolean {
@@ -128,4 +148,5 @@ class LoginActivity : AppCompatActivity() {
 
         return true
     }
+
 }

@@ -17,6 +17,9 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent=Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(/* enterAnim = */ R.navigation.navigate_to, /* exitAnim = */
+                R.navigation.navigation_from)
+            finish()
         }
             ,2000)
     }
