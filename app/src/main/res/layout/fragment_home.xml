@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".Home">
 
-    <!-- Search Field at the Top -->
+    <!-- Parent LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp">
 
         <!-- Logo on the left -->
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="65dp"
             android:src="@drawable/quickmart" />
 
-        <!-- Spacer to push the search icon to the right -->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1" />-->
-
-        <!-- Search icon on the right -->
-
-
-
-
-
-    <!-- A placeholder for additional design components -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <!-- Section Title: Latest In Mart -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="start"
+            android:padding="8dp"
+            android:text="Latest In Mart"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <!-- Example of a TextView -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Home Screen"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:padding="8dp" />
+        <!-- ViewPager2 -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:clipToPadding="false"
+            android:paddingStart="80dp"
+            android:paddingEnd="80dp" />
 
+        <!-- Section Title: Categories -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="8dp"
+            android:text="Categories"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
+        <!-- RecyclerView for Categories -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            />
 
-            <!-- Example of a Grid -->
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginTop="16dp">
+        <!-- Section Title: Products -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="8dp"
+            android:text="Products"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-                <!-- Placeholder Item 1 -->
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:background="#FFDDDD"
-                    android:gravity="center"
-                    android:text="Item 1"
-                    android:layout_margin="4dp" />
-
-                <!-- Placeholder Item 2 -->
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:background="#DDFFDD"
-                    android:gravity="center"
-                    android:text="Item 2"
-                    android:layout_margin="4dp" />
-            </GridLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+        <!-- RecyclerView for Products Grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gridRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:itemCount="6"
+        tools:listitem="@layout/product_item_layout" />
+    </LinearLayout>
+</ScrollView>
