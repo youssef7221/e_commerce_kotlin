@@ -24,6 +24,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var signUpBtn : Button
     private lateinit var binding: RegisterScreenBinding
     private lateinit var fireBaseAuth:FirebaseAuth
+    private var isPasswordVisible = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
