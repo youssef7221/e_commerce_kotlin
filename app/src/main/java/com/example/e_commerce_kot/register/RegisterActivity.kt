@@ -1,16 +1,20 @@
 package com.example.e_commerce_kot.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.e_commerce_kot.R
 import com.example.e_commerce_kot.databinding.ActivityMainBinding
 import com.example.e_commerce_kot.databinding.RegisterScreenBinding
@@ -22,10 +26,11 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordInput : EditText
     private lateinit var nameInput : EditText
     private lateinit var signUpBtn : Button
+    private var isPasswordVisible = false
+    private var lastClickTime: Long = 0
     private lateinit var binding: RegisterScreenBinding
     private lateinit var fireBaseAuth:FirebaseAuth
-    private var isPasswordVisible = false
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -37,6 +42,39 @@ class RegisterActivity : AppCompatActivity() {
         nameInput = findViewById(R.id.name_input)
         signUpBtn = findViewById(R.id.signUp_btn)
         fireBaseAuth = FirebaseAuth.getInstance();
+        passwordInput.setOnTouchListener { _, event ->
+            val drawableEnd = 2 // Index for drawableEnd in LTR layout
+            val drawable = passwordInput.compoundDrawables[drawableEnd]
+
+            if (drawable != null && event.action == MotionEvent.ACTION_UP &&
+                event.rawX >= (passwordInput.right - drawable.bounds.width())) {
+
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - lastClickTime < 500) { // 500ms debounce time
+                    return@setOnTouchListener true
+                }
+                lastClickTime = currentTime
+
+                // Toggle password visibility
+                isPasswordVisible = !isPasswordVisible
+                if (isPasswordVisible) {
+                    // Show password
+                    passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    passwordInput.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, ContextCompat.getDrawable(this, R.drawable.ic_visibility), null
+                    )
+                } else {
+                    // Hide password
+                    passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    passwordInput.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, ContextCompat.getDrawable(this, R.drawable.ic_visibility_off), null
+                    )
+                }
+                passwordInput.setSelection(passwordInput.text.length) // Maintain cursor position
+                return@setOnTouchListener true
+            }
+            false
+        }
         signUpBtn.setOnClickListener{
             if (validateInputs()){
                 print(emailInput);

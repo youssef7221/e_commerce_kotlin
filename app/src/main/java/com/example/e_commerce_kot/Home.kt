@@ -84,7 +84,6 @@ class Home : Fragment() {
         viewPager2.setPageTransformer(transformer)
     }
 
-
     private fun init(view: View) {
         // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recycle_view)
@@ -113,12 +112,11 @@ class Home : Fragment() {
         viewPager2 = view.findViewById(R.id.viewPager2)  // Corrected Line
         handler = Handler(Looper.myLooper()!!)
         imageList = ArrayList()
-        imageList.add(R.drawable.latest1)
-        imageList.add(R.drawable.baseline_shopping_cart_24)
-        imageList.add(R.drawable.baseline_shopping_cart_24)
-        imageList.add(R.drawable.baseline_shopping_cart_24)
+        imageList.add(R.drawable.iphone)
+        imageList.add(R.drawable.ps5)
+        imageList.add(R.drawable.samsung)
+        imageList.add(R.drawable.airpods)
         imageAdapter = ImageAdapter(imageList, viewPager2)
-
         viewPager2.adapter = imageAdapter
         viewPager2.offscreenPageLimit = 3
         viewPager2.clipToPadding = false
@@ -134,17 +132,13 @@ class Home : Fragment() {
             Product("Smart Watch", "Latest technology", "59.99 $", false, R.drawable.product2),
             Product("Wireless Headphones", "High-quality sound", "32.99 $", false, R.drawable.product3)
         )
-
 // Initialize RecyclerView for products
         productsRecycleViewer = view.findViewById(R.id.gridRecyclerView)
         productsRecycleViewer.layoutManager = GridLayoutManager(requireContext(), 2)
-
 // Initialize ProductAdapter
         productAdapter = ProductAdapter(productList)
-
 // Set the adapter to the RecyclerView
         productsRecycleViewer.adapter = productAdapter
-
 
         setUpTransformer()
     }
@@ -154,7 +148,7 @@ class Home : Fragment() {
         // Add dummy data to the categories list
         categoriesList.add(categories(categoryImage = R.drawable.fashoin, name = "Fashion"))
         categoriesList.add(categories(categoryImage = R.drawable.product2, name = "Electronics"))
-        categoriesList.add(categories(categoryImage = R.drawable.quickmart, name = "Industrial"))
+        categoriesList.add(categories(categoryImage = R.drawable.sports, name = "Sports"))
         categoriesList.add(categories(categoryImage = R.drawable.parcel, name = "Parcel"))
         categoriesList.add(categories(categoryImage = R.drawable.grocery, name = "Grocery"))
 //        categoriesList.add(categories(categoryImage = R.drawable.industrial, name = "Toys"))
