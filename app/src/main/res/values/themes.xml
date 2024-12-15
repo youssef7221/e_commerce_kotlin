@@ -5,10 +5,10 @@
         <item name="colorPrimary">@color/black</item>
     </style>
 
-<!--    <style name="ActiveIndicatorStyle">-->
-<!--        <item name="activeI">#21D4B4</item>  &lt;!&ndash; Active indicator color &ndash;&gt;-->
-<!--        <item name="android:indicatorHeight">3dp</item> &lt;!&ndash; Height of the active indicator &ndash;&gt;-->
-<!--    </style>-->
+    <!--    <style name="ActiveIndicatorStyle">-->
+    <!--        <item name="activeI">#21D4B4</item>  &lt;!&ndash; Active indicator color &ndash;&gt;-->
+    <!--        <item name="android:indicatorHeight">3dp</item> &lt;!&ndash; Height of the active indicator &ndash;&gt;-->
+    <!--    </style>-->
 
     <!-- EditText Style -->
     <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

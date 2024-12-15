@@ -1,59 +1,91 @@
 package com.example.e_commerce_kot
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.e_commerce_kot.cart_manager.CartManager
+import com.example.e_commerce_kot.data.CartAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Cart.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Cart : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // UI Elements
+    private lateinit var cartRecyclerView: RecyclerView
+    private lateinit var emptyCartLayout: LinearLayout
+    private lateinit var cartAdapter: CartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        val view = inflater.inflate(R.layout.fragment_cart, container, false)
+
+        // Initialize UI elements
+        emptyCartLayout = view.findViewById(R.id.emptyCartLayout)
+        cartRecyclerView = view.findViewById(R.id.cartRecyclerView)
+
+        // Initialize RecyclerView and Adapter
+        setupRecyclerView()
+
+        // Toggle between empty cart layout and RecyclerView
+        toggleCartView()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Cart.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Cart().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setupRecyclerView() {
+        cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Pass the callbacks for increase, decrease, and delete operations
+        cartAdapter = CartAdapter(
+            CartManager.getCartItems().toMutableList(),
+            onIncreaseQuantity = { productId -> handleIncreaseQuantity(productId) },
+            onDecreaseQuantity = { productId -> handleDecreaseQuantity(productId) },
+            onDeleteItem = { productId -> handleDeleteItem(productId) }
+        )
+
+        cartRecyclerView.adapter = cartAdapter
+    }
+
+    private fun handleIncreaseQuantity(productId: Int) {
+        // Increase product quantity
+        CartManager.increaseQuantity(productId)
+        cartAdapter.updateCartItems(CartManager.getCartItems())
+        toggleCartView()
+    }
+
+    private fun handleDecreaseQuantity(productId: Int) {
+        // Decrease product quantity
+        CartManager.decreaseQuantity(productId)
+
+        // Refresh adapter data
+        cartAdapter.updateCartItems(CartManager.getCartItems())
+        toggleCartView()
+    }
+
+    private fun handleDeleteItem(productId: Int) {
+        // Delete product from cart
+        CartManager.deleteProduct(productId)
+
+        // Refresh adapter data
+        cartAdapter.updateCartItems(CartManager.getCartItems())
+        toggleCartView()
+    }
+
+    private fun toggleCartView() {
+        if (CartManager.getCartItems().isEmpty()) {
+            // Show empty cart layout
+            emptyCartLayout.visibility = View.VISIBLE
+            cartRecyclerView.visibility = View.GONE
+        } else {
+            // Show RecyclerView
+            emptyCartLayout.visibility = View.GONE
+            cartRecyclerView.visibility = View.VISIBLE
+        }
     }
 }

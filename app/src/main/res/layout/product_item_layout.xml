@@ -10,6 +10,12 @@
     app:cardElevation="4dp"
     app:cardBackgroundColor="@android:color/white">
 
+
+<!--    <include-->
+<!--        android:id="@+id/addToCart"-->
+<!--        layout="@layout/product_details_layout"-->
+<!--        android:visibility="gone" />-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

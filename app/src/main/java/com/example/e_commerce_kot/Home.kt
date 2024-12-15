@@ -1,5 +1,7 @@
 package com.example.e_commerce_kot
 
+import android.content.Intent
+import android.graphics.BitmapFactory.Options
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +22,7 @@ import com.example.e_commerce_kot.data.Product
 import com.example.e_commerce_kot.data.ProductAdapter
 import com.example.e_commerce_kot.data.categories
 import com.example.e_commerce_kot.data.categoriesAdapter
+import com.example.e_commerce_kot.product_details.ProdcutDetailsActivity
 import kotlin.math.abs
 
 class Home : Fragment() {
@@ -27,8 +30,8 @@ class Home : Fragment() {
     private lateinit var categoriesList: ArrayList<categories>
     private lateinit var categoriesAdapter: categoriesAdapter
     private lateinit var viewPager2: ViewPager2
-    private lateinit var handler : Handler
-    private lateinit var imageList : ArrayList<Int>
+    private lateinit var handler: Handler
+    private lateinit var imageList: ArrayList<Int>
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var productsRecycleViewer: RecyclerView
     private lateinit var productAdapter: ProductAdapter
@@ -44,11 +47,11 @@ class Home : Fragment() {
         // Initialize views and set up RecyclerView
         init(view)
 
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable , 2000)
+                handler.postDelayed(runnable, 2000)
             }
         })
 
@@ -66,14 +69,14 @@ class Home : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        handler.postDelayed(runnable , 2000)
+        handler.postDelayed(runnable, 2000)
     }
 
     private val runnable = Runnable {
         viewPager2.currentItem += 1
     }
 
-    private fun setUpTransformer(){
+    private fun setUpTransformer() {
         val transformer = CompositePageTransformer()
         transformer.addTransformer(MarginPageTransformer(40))
         transformer.addTransformer { page, position ->
@@ -127,16 +130,63 @@ class Home : Fragment() {
 
         // Product data list
         val productList = listOf(
-            Product("Nike Air Jordan", "Retro fashion shoes", "126.0 $", false, R.drawable.product1),
-            Product("Classic Glasses", "Stylish new glasses", "8.5 $", false, R.drawable.quickmart),
-            Product("Smart Watch", "Latest technology", "59.99 $", false, R.drawable.product2),
-            Product("Wireless Headphones", "High-quality sound", "32.99 $", false, R.drawable.product3)
+            Product(
+                name = "Nike Air Jordan",
+                description = "Retro fashion shoes",
+                productId = 1,  // Assuming a product ID (e.g., 1)
+                price = "126.0 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product1
+            ),
+            Product(
+                productId = 2,  // Assign a unique product ID
+                name = "Classic Glasses",
+                description = "Stylish new glasses",
+                price = "8.5 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.quickmart
+            ),
+            Product(
+                name = "Smart Watch",
+                description = "Latest technology",
+                productId = 3,  // Assign a unique product ID
+                price = "59.99 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product2
+            ),
+            Product(
+                name = "Wireless Headphones",
+                description = "High-quality sound",
+                productId = 4,  // Assign a unique product ID
+                price = "32.99 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product3
+            )
         )
+
 // Initialize RecyclerView for products
         productsRecycleViewer = view.findViewById(R.id.gridRecyclerView)
         productsRecycleViewer.layoutManager = GridLayoutManager(requireContext(), 2)
 // Initialize ProductAdapter
         productAdapter = ProductAdapter(productList)
+        productAdapter.onItemClicked = { product ->
+            val intent = Intent(context, ProdcutDetailsActivity::class.java)
+            intent.putExtra("productTitle", product.name)
+            intent.putExtra("productDescription", product.description)
+            intent.putExtra("productId",product.productId)
+            intent.putExtra("productPrice", "Price : ${product.price}")
+            intent.putExtra("productImageResId", product.image)
+
+            startActivity(intent)
+
+
+        }
+
+
 // Set the adapter to the RecyclerView
         productsRecycleViewer.adapter = productAdapter
 
