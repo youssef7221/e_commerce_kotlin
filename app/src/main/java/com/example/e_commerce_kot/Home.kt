@@ -131,8 +131,8 @@ class Home : Fragment() {
         // Product data list
         val productList = listOf(
             Product(
-                name = "Nike Air Jordan",
-                description = "Retro fashion shoes",
+                name = "Laptop Windows 15",
+                description = "High Performance",
                 productId = 1,  // Assuming a product ID (e.g., 1)
                 price = "126.0 $",
                 isLiked = false,
@@ -161,6 +161,42 @@ class Home : Fragment() {
                 name = "Wireless Headphones",
                 description = "High-quality sound",
                 productId = 4,  // Assign a unique product ID
+                price = "32.99 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product3
+            ),
+            Product(
+                name = "Laptop Windows 15",
+                description = "Big Screen",
+                productId = 5,  // Assuming a product ID (e.g., 1)
+                price = "126.0 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product1
+            ),
+            Product(
+                productId = 6,  // Assign a unique product ID
+                name = "Classic Glasses",
+                description = "Stylish new glasses",
+                price = "8.5 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.quickmart
+            ),
+            Product(
+                name = "Smart Watch",
+                description = "Latest technology",
+                productId = 7,  // Assign a unique product ID
+                price = "59.99 $",
+                isLiked = false,
+                quantity = 1,  // Set initial quantity (e.g., 1)
+                image = R.drawable.product2
+            ),
+            Product(
+                name = "Wireless Headphones",
+                description = "High-quality sound",
+                productId = 8,  // Assign a unique product ID
                 price = "32.99 $",
                 isLiked = false,
                 quantity = 1,  // Set initial quantity (e.g., 1)

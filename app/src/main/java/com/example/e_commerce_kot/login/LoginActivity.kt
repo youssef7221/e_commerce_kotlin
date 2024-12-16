@@ -86,7 +86,8 @@ class LoginActivity : AppCompatActivity() {
             false
         }
 
-        fireBaseAuth = FirebaseAuth.getInstance();
+        fireBaseAuth = FirebaseAuth.
+        ();
         // Set onClickListener for login button
         loginButton.setOnClickListener {
             if (validateInputs()) {
